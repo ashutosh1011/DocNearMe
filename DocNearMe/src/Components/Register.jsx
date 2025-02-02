@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
@@ -28,6 +27,7 @@ const Register = () => {
     if (file) {
       console.log("File uploaded:", file);
     }
+    console.log("Form submitted!");
   };
 
   const toggleForm = () => {
@@ -35,70 +35,231 @@ const Register = () => {
   };
 
   return (
-    <>
-      <button onClick={toggleForm}>
-        Register as {isDoctor ? "Patient" : "Doctor"}
-      </button>
+      <div className="bg-white p-8 rounded-xl shadow-2xl w-full sm:w-96 transform transition-all duration-500 hover:scale-105 z-10">
+        <div className="text-center">
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            Register as {isDoctor ? "Doctor" : "Patient"}
+          </h2>
+          <button
+            onClick={toggleForm}
+            className="mt-4 text-sm text-blue-600 hover:text-blue-500"
+          >
+            Switch to {isDoctor ? "Patient" : "Doctor"} Registration
+          </button>
+        </div>
 
-      {isDoctor ? (
-        <div>
-          <label>Enter Your Name:</label>
-          <input type="text" name="doctorName" />
-
-          <label>Your Specialization:</label>
-          <input type="text" name="doctorSpecialization" />
-
-          <label>Enter Your Email Address:</label>
-          <input type="email" name="email" required />
-
-          <label>Enter Your Clinic Address</label>
-          <input type="text" name="address" />
-
-          <label>Enter Clinic Opening Time:</label>
-          <input type="time" name="openingTime" required />
-
-          <label>Enter Clinic Closing Time:</label>
-          <input type="time" name="closingTime" required />
-
-          <label>Please Upload Your License</label>
-
-          <input type="file" name="license" onChange={handleFileChange} />
-          {filePreview && <img src={filePreview} alt="Preview" width="100" />}
-          <div>
-            <p>{file ? `Selected file: ${file.name}` : "No file selected"}</p>
+        <form className="mt-8 space-y-6">
+          {isDoctor ? (
+            <div className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  name="doctorUsername"
+                  placeholder="Enter Username"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="doctorName"
+                  placeholder="Enter your Name"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="doctorSpecialization"
+                  placeholder="Enter Specialization"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your Email"
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Enter your Clinic Address"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 text-left">Clinic Opening Time</label>
+                <input
+                  type="time"
+                  name="openingTime"
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 text-left">Clinic Closing Time</label>
+                <input
+                  type="time"
+                  name="closingTime"
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Upload License</label>
+                <input
+                  type="file"
+                  name="license"
+                  onChange={handleFileChange}
+                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                />
+                {filePreview && (
+                  <img src={filePreview} alt="Preview" className="mt-2 w-24 h-24 rounded-lg object-cover" />
+                )}
+                <p className="mt-2 text-sm text-gray-500">
+                  {file ? `Selected file: ${file.name}` : "No file selected"}
+                </p>
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              >
+                Register as Doctor
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  name="PatientUsername"
+                  placeholder="Enter Username"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="Enter your Name"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  inputMode="numeric"
+                  pattern="[0-9]{10}"
+                  placeholder="Enter Contact Number"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                  }}
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your Email"
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="number"
+                  name="age"
+                  placeholder="Enter your Age"
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />  
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Enter your Address"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <textarea
+                  name="medicalHistory"
+                  placeholder="Enter Your Medical History or Allergies"
+                  rows="4"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <select
+                  name="gender"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="" disabled selected hidden>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              >
+                Register as Patient
+              </button>
+            </div>
+          )}
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link to="/" className="font-medium text-blue-600 hover:text-blue-500">
+                Log in
+              </Link>
+            </p>
           </div>
-          <button onClick={handleSubmit}>Upload</button>
+        </form>
         </div>
-      ) : (
-        <div>
-          <label>Enter Your Name:</label>
-          <input type="text" name="firstName" />
-          <label>Enter Your Contact Number:</label>
-          <input type="tel" name="phoneNumber" pattern="[0-9]{10}" />
-          <label>Enter Your Address:</label>
-          <input type="text" name="address" />
-          <label>Enter Your Email Address:</label>
-          <input type="email" name="email" required />
-
-          <label>Enter Your Medical History or Allergies:</label>
-          <textarea name="medicalHistory" rows="4" />
-
-          <label>Gender:</label>
-          <select name="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-
-          <label>Enter Your Password</label>
-          <input type="password" name="password" />
-          <label>Confirm Password</label>
-          <input type="password" name="confirmPassword" />
-        </div>
-      )}
-      <p>Already have an account?</p>
-      <Link to="/">Login here</Link>
-    </>
   );
 };
 
