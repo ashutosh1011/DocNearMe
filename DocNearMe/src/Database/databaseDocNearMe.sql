@@ -11,7 +11,7 @@ CREATE TABLE users (
 
 -- Doctors Table
 CREATE TABLE doctors (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    docterId INT PRIMARY KEY AUTO_INCREMENT,
     userId INT AUTO_INCREMENT NOT NULL UNIQUE,
     username VARCHAR(50) UNIQUE NOT NULL,
     full_name VARCHAR(255) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE doctors (
 
 -- Patients Table
 CREATE TABLE patients (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    patientId INT PRIMARY KEY AUTO_INCREMENT,
     userId INT AUTO_INCREMENT NOT NULL UNIQUE,
     full_name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),
